@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+
+{% block title %}My Blog{% endblock %}
+
+{% block content %}
+    <h1>My Blog Posts</h1>
+    {% for post in posts %}
+        <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+
+        {% include 'blog/post/tags.html' with tags=post.tags.all %}
+
+        <p class="date">Published {{ post.publish }} by {{ post.author }}</p>
+        {{ post.body|truncatewords:30|linebreaks }}
+    {% endfor %}
+    {% include "pagination.html" with page=posts %}
+    
+    <!-- If you’re using pagination, you can adapt the example template from the pagination docs. Change instances of contacts in that example template to page_obj. -->
+    <!-- https://docs.djangoproject.com/en/2.2/ref/class-based-views/generic-display/#listview -->
+    {% comment 'include for CBV' %}{% include "pagination.html" with page=page_obj %}{% endcomment %}
+{% endblock %}

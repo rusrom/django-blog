@@ -1,0 +1,10 @@
+<!-- Just text tags -->
+<!-- <p class="tags">Tags: {{ post.tags.all|join:', ' }}</p> -->
+
+<!-- List of tag links -->
+<p class="tags">Tags:
+    {% for tag in tags %}
+        <a href="{% url 'blog:post_list_by_tag' tag.slug %}">{{ tag.name }}</a>
+        {% if not forloop.last %},{% endif %}
+    {% endfor %}
+</p>
